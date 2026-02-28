@@ -1,0 +1,27 @@
+{
+  "name": "master-book-production",
+  "version": "10.0.0",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "electron": "wait-on http://localhost:5173 && electron .",
+    "start": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "dist": "vite build && electron-builder"
+  },
+  "dependencies": {
+    "firebase": "^10.8.0",
+    "lucide-react": "^0.344.0",
+    "html-to-image": "^1.11.11",
+    "jszip": "^3.10.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "vite": "^5.1.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "wait-on": "^7.2.0"
+  }
+}
