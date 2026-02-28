@@ -1,27 +1,35 @@
-const { app, BrowserWindow } = require('electron');
+// main.js - 优化后
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 1300,
     height: 900,
+    title: "极简爆款书单工坊 - 重型产线 v10",
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      webSecurity: false // 允许跨域调用 Gemini API
+      webSecurity: false 
     }
   });
 
-  // 修改这里：开发模式加载本地服务器地址
-  // 生产模式（打包后）才加载 index.html
+  // 屏蔽菜单栏提升专业感
+  Menu.setApplicationMenu(null);
+
+  // 根据环境加载
   const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
   
   if (isDev) {
-    win.loadURL('http://localhost:5173');
-    win.webContents.openDevTools(); // 自动打开调试工具，方便看报错
+    win.loadURL('http://localhost:5173'); // 加载 Vite 预览
+    // win.webContents.openDevTools(); // 调试时可开启
   } else {
-    win.loadFile('index.html');
+    win.loadFile(path.join(__dirname, 'dist/index.html')); // 加载打包后的文件
   }
 }
 
 app.whenReady().then(createWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
+});
