@@ -154,7 +154,7 @@ const App = () => {
 
     try {
       const trendPrompt = `返回当前热度排名前30的书单。只返回 JSON 数组格式：[{"title": "书名"}]`;
-      const result = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${geminiKey}`, {
+      const result = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${geminiKey}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
